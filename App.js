@@ -1,15 +1,37 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {  useState } from 'react';
+import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import Texted from './components/Text';
+import ToDoBlock from './components/ToDoBlock';
+import ToDoList from './components/ToDoList';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+const App = () => {
+    const [ todos, setTodos ] = useState([]);
+
+    const addToDo = (title) => {
+      // const newToDo = {
+      //   id: Date.now().toString(),
+      //   title: title,
+      // };
+
+      setTodos(prev => [...prev, {
+        id: Date.now().toString(),
+        title,
+      }]);
+    };
+
+    return (
+      <View style={styles.container}>
+        <Texted />
+        <ToDoBlock onSubmit={addToDo} />
+
+        <ToDoList todosItem={todos} />
+
+      </View>
+    );
+};
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {
